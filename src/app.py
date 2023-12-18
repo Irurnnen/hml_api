@@ -8,11 +8,16 @@ from settings.api_spec import get_apispec
 from settings.configs import env
 from settings.swagger import swagger_ui_blueprint, SWAGGER_URL
 
+from middleware.middleware import CleanUpMiddleware
+
+
+
 db = None
 
 
 def create_app(config_name) -> Flask:
     flask_app = Flask(__name__)
+    flask_app.wsgi_app = CleanUpMiddleware(flask_app.wsgi_app)
     config_module = f"settings.configs.{config_name.capitalize()}Config"
     flask_app.config.from_object(config_module)
     db = SQLAlchemy(flask_app)
