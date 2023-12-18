@@ -1,0 +1,47 @@
+paths:
+  /docs/dist/{filename}: {}
+  /docs/{path}: {}
+  /swagger: {}
+info:
+  title: HML App
+  version: 1.0.0
+tags:
+- name: math
+  description: "\u041C\u0430\u0442\u0435\u043C\u0430\u0442\u0438\u0447\u0435\u0441\
+    \u043A\u0438\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0438"
+openapi: 3.0.3
+components:
+  schemas:
+    Input:
+      type: object
+      properties:
+        number:
+          type: integer
+          description: "\u0427\u0438\u0441\u043B\u043E"
+          example: 5
+        power:
+          type: integer
+          description: "\u0421\u0442\u0435\u043F\u0435\u043D\u044C"
+          example: 2
+      required:
+      - number
+      - power
+    Output:
+      type: object
+      properties:
+        result:
+          type: integer
+          description: "\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442"
+          example: 25
+      required:
+      - result
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: "\u0421\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435 \u043E\
+            \u0431 \u043E\u0448\u0438\u0431\u043A\u0435"
+          example: Invalid input parameter number
+      required:
+      - error

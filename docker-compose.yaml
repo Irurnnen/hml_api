@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  hml-db:
+    image: postgres:14-alpine
+    container_name: hml-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - hml-db-data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      PG_DATA: /var/lib/postgresql/data
+    restart: always
+
+  hml-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hml-app
+    command: "bash start"
+    env_file:
+      - .env
+    environment:
+      WAIT-HOSTS: hml-db
+    volumes:
+      - ./src:/app
+    ports:
+      - "5000:5000"
+    tty: true
+    restart: on-failure
+
+volumes:
+  hml-db-data:
+
+networks:
+  hml-network:
+    external: false

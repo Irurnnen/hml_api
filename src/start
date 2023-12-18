@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+alembic upgrade head
+
+if [[ $APPLICATION_CONFIG = "production" ]]; then
+  echo "Production mode"
+elif [[ $APPLICATION_CONFIG = "testing" ]]; then
+  echo "Testing mode"
+elif [[ $APPLICATION_CONFIG = "development" ]]; then
+  echo "Development mode"
+  python app.py
+fi
